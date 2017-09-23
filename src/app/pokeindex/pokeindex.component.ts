@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokeapiService } from '../services/pokeapi.service';
-import { Pokemon } from '../pokemon/pokemon';
+import { PokemonList } from '../services/pokemon.list';
 
 @Component({
   selector: 'app-pokeindex',
@@ -10,11 +10,11 @@ import { Pokemon } from '../pokemon/pokemon';
 })
 export class PokeindexComponent implements OnInit {
 
-  private pokemonsList: Array<Pokemon>;
+  private pokemonsList: PokemonList[];
   constructor(private pokeApi: PokeapiService) { }
 
   ngOnInit() {
-    this.pokemonsList = this.pokeApi.getPokemonsList();
+    this.pokeApi.getPokemonsList().then((response) => { this.pokemonsList = response; });
   }
 
 }
