@@ -2,7 +2,7 @@
   <p>Nombre: {{pokemon.name}}</p>
   <img [src]="pokemon.sprites.front_default">
   <ul class="types">
-    <li *ngFor="let slotType of pokemon.slotTypes">{{slotType.type.name}}</li>
+    <li *ngFor="let slotType of pokemon.types">{{slotType.type.name}}</li>
   </ul>
   <p> pokemon works! </p>
 </div>

@@ -14,7 +14,7 @@ export class Pokemon {
   public name: string;
   public height: number;
   public weight: number;
-  public slotTypes: Array<PokemonSlotType>;
+  public types: Array<PokemonSlotType>;
   public sprites: any;
 
 }

@@ -17,4 +17,7 @@ export class PokeindexComponent implements OnInit {
     this.pokeApi.getPokemonsList().then((response) => { this.pokemonsList = response; });
   }
 
+  getDetail(pokemon: PokemonList): void {
+    console.log(pokemon, 'here i am');
+  }
 }

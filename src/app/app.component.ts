@@ -26,7 +26,7 @@ export class AppComponent {
     },
     'height': 7,
     'id': 1,
-    'slotTypes': [{
+    'types': [{
       'slot': 2,
       'type': {
         'url': 'https://pokeapi.co/api/v2/type/4/',
