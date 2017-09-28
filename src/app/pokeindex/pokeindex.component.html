@@ -1,3 +1,4 @@
 <ul class="pokemon-list">
   <li *ngFor="let pokemon of pokemonsList" class="pokemon" (click)="getDetail(pokemon)">{{pokemon.name}}</li>
 </ul>
+<app-pokemon [pokemon]="selectedPokemon"></app-pokemon>
