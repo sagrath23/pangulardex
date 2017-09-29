@@ -1,4 +1,3 @@
 <ul class="pokemon-list">
-  <li *ngFor="let pokemon of pokemonsList" class="pokemon" (click)="getDetail(pokemon)">{{pokemon.name}}</li>
+    <li *ngFor="let pokemon of pokemonsList" class="pokemon" (click)="getDetail(pokemon)"><a [routerLink]="['/pokemon', pokemon.name]">{{pokemon.name}}</a></li>
 </ul>
-<app-pokemon [pokemon]="selectedPokemon"></app-pokemon>

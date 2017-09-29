@@ -1,10 +1,8 @@
 <div *ngIf="pokemon">
-  <p>Nombre: {{pokemon.name}}</p>
-  <img [src]="pokemon.sprites.front_default">
-  <ul class="types">
-    <li *ngFor="let slotType of pokemon.types">{{slotType.type.name}}</li>
-  </ul>
-  <p> pokemon works! </p>
+    <p>Nombre: {{pokemon.name}}</p>
+    <img [src]="pokemon.sprites.front_default">
+    <ul class="types">
+        <li *ngFor="let slotType of pokemon.types">{{slotType.type.name}}</li>
+    </ul>
+    <button (click)="goBack()">Back</button>
 </div>
-
-

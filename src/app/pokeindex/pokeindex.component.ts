@@ -14,6 +14,7 @@ export class PokeindexComponent implements OnInit {
 
   private pokemonsList: PokemonList[];
   private selectedPokemon: Pokemon;
+
   constructor(private pokeApi: PokeapiService) { }
 
   ngOnInit() {

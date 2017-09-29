@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { PokeindexComponent } from './pokeindex/pokeindex.component';
 
+import { AppRoutingModule } from './routes/app-routing.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,8 @@ import { PokeindexComponent } from './pokeindex/pokeindex.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

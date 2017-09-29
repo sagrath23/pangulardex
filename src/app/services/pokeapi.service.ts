@@ -20,6 +20,7 @@ export class PokeapiService {
   }
 
   getPokemon(name: string): Promise<Pokemon> {
+    console.log('searching for ' + name );
       return this.http.get(this.heroesUrl + 'pokemon/' + name + '/')
                 .toPromise()
                 .then(response => response.json() as Pokemon)
