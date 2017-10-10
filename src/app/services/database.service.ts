@@ -14,12 +14,13 @@ export class DatabaseService {
 
     console.log('open local database');
     this.db.openDatabase(1, (event) => {
-      console.log('local database opened');
       const objectStore = event.currentTarget.result.createObjectStore(
         'pokemons', { keyPath: 'name' , autoIncrement: true });
 
       objectStore.createIndex('name', 'name', { unique: true });
-    });
+    }).then(() => {
+      console.log('local database opened');
+    } );
   }
 
   getPokemonByName(pokemonName: string): Promise<Pokemon> {
