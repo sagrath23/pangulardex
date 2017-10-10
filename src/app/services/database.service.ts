@@ -9,12 +9,10 @@ export class DatabaseService {
   private db: AngularIndexedDB;
 
   constructor() {
-    console.log('creating database...');
     this.db = new AngularIndexedDB('pokemonDb', 1);
   }
 
   openDatabase(): Promise<any> {
-    console.log('open local database');
     return this.db.openDatabase(1, (event) => {
       const objectStore = event.currentTarget.result.createObjectStore(
         'pokemons', { keyPath: 'name' , autoIncrement: true });
@@ -26,22 +24,19 @@ export class DatabaseService {
   }
 
   getPokemonByName(pokemonName: string): Promise<Pokemon> {
-    console.log('searching ' + pokemonName + ' in local database');
     return this.db.getByKey('pokemons', pokemonName).then(
       (pokemon) => {
         return pokemon;
       }, (error) => {
-        console.log(error);
+        console.log(error, 'database.service.ts => getPokemonByName');
       });
   }
 
   addPokemon(pokemon: Pokemon): void {
     this.db.add('pokemons', pokemon).then(
-      () => {
-        console.log('pokemon added to localdatabase');
-      },
+      () => {},
       (error) => {
-        console.log(error);
+        console.log(error, 'database.service.ts => addPokemon');
       });
   }
 }

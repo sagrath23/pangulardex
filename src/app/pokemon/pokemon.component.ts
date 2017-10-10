@@ -22,33 +22,35 @@ export class PokemonComponent implements OnInit {
   ngOnInit(): void {
     this.db.openDatabase().then(
       (response) => {
-        console.log('local database used in component');
         this.route.paramMap
-        .switchMap(
-          (params: ParamMap) => {
-            // check if pokemon is in local database
-            return this.db.getPokemonByName(params.get('name'))
-              .then(
-                (pokemon) => {
-                  console.log('pokemon found in local database');
-                  console.log(pokemon);
-                  if ( pokemon ) {
-                    return pokemon;
-                  } else {
-                    console.log('using service to get pokemon');
-                    return this.pokeApi.getPokemon(params.get('name'));
-                  }
-                },
-                (error) => {
-                  console.log('using service to get pokemon');
-                  return this.pokeApi.getPokemon(params.get('name'));
-                });
-          })
+          .switchMap(
+            (params: ParamMap) => {
+              // check if pokemon is in local database
+              return this.db.getPokemonByName(params.get('name'))
+                .then(
+                  (storedPokemon) => {
+                    // if exist, then return it
+                    if ( storedPokemon ) {
+                      return storedPokemon;
+                    } else {
+                      // otherwise, get pokemon from service
+                      return this.pokeApi.getPokemon(params.get('name'))
+                              .then(
+                                ( newPokemon ) => {
+                                  // and save pokemon in local database
+                                  this.db.addPokemon(newPokemon);
+                                  return newPokemon;
+                                });
+                    }
+                  })
+                .catch(
+                  (error) => {
+                      return Promise.reject(error);
+                  });
+            })
         .subscribe(
           (pokemon) => {
             this.pokemon = pokemon;
-            // save pokemon
-            this.db.addPokemon(pokemon);
           });
       },
       (error) => {
