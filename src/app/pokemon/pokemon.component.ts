@@ -20,18 +20,41 @@ export class PokemonComponent implements OnInit {
   constructor(private route: ActivatedRoute, private db: DatabaseService, private pokeApi: PokeapiService, private location: Location) { }
 
   ngOnInit(): void {
-    this.route.paramMap
-      .switchMap(
-        (params: ParamMap) => {
-          // check if pokemon is in local database
-          return this.db.getPokemonByName(params.get('name'))
-            .then(
-              (pokemon) => pokemon,
-              (error) => {
-                return this.pokeApi.getPokemon(params.get('name'));
-              });
-        })
-      .subscribe(pokemon => this.pokemon = pokemon);
+    this.db.openDatabase().then(
+      (response) => {
+        console.log('local database used in component');
+        this.route.paramMap
+        .switchMap(
+          (params: ParamMap) => {
+            // check if pokemon is in local database
+            return this.db.getPokemonByName(params.get('name'))
+              .then(
+                (pokemon) => {
+                  console.log('pokemon found in local database');
+                  console.log(pokemon);
+                  if ( pokemon ) {
+                    return pokemon;
+                  } else {
+                    console.log('using service to get pokemon');
+                    return this.pokeApi.getPokemon(params.get('name'));
+                  }
+                },
+                (error) => {
+                  console.log('using service to get pokemon');
+                  return this.pokeApi.getPokemon(params.get('name'));
+                });
+          })
+        .subscribe(
+          (pokemon) => {
+            this.pokemon = pokemon;
+            // save pokemon
+            this.db.addPokemon(pokemon);
+          });
+      },
+      (error) => {
+        console.log(error);
+      });
+
   }
 
   goBack(): void {

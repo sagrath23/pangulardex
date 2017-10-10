@@ -11,9 +11,11 @@ export class DatabaseService {
   constructor() {
     console.log('creating database...');
     this.db = new AngularIndexedDB('pokemonDb', 1);
+  }
 
+  openDatabase(): Promise<any> {
     console.log('open local database');
-    this.db.openDatabase(1, (event) => {
+    return this.db.openDatabase(1, (event) => {
       const objectStore = event.currentTarget.result.createObjectStore(
         'pokemons', { keyPath: 'name' , autoIncrement: true });
 
