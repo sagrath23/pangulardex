@@ -25,24 +25,7 @@ export class PokemonComponent implements OnInit {
         this.route.paramMap.switchMap(
           (params: ParamMap) => {
             // check if pokemon is in local database
-            return this.db.getPokemonByName(params.get('name')).then(
-              (storedPokemon) => {
-                // if exist, then return it
-                if ( storedPokemon ) {
-                  return storedPokemon;
-                } else {
-                  // otherwise, get pokemon from service
-                  return this.pokeApi.getPokemon(params.get('name')).then(
-                    ( newPokemon ) => {
-                      // and save pokemon in local database
-                      this.db.addPokemon(newPokemon);
-                      return newPokemon;
-                    });
-                }
-              }).catch(
-              (error) => {
-                return Promise.reject(error);
-              });
+            return this.searchPokemonInDatabase(params.get('name'));
           }).subscribe(
             (pokemon) => {
               this.pokemon = pokemon;
@@ -51,6 +34,31 @@ export class PokemonComponent implements OnInit {
       (error) => {
         console.log(error);
       });
+  }
+
+  searchPokemonInDatabase(name: string): Promise<Pokemon> {
+    return this.db.getPokemonByName(name).then((storedPokemon) => {
+      if (storedPokemon) {
+        return storedPokemon;
+      } else {
+        // otherwise, get pokemon from service
+        return this.getPokemonFromService(name);
+      }
+    }).catch(
+      (error) => {
+        return Promise.reject(error);
+      });
+  }
+
+  getPokemonFromService(name: string): Promise<Pokemon> {
+    return this.pokeApi.getPokemon(name).then((newPokemon) => {
+      return this.addPokemonToDatabase(newPokemon);
+    });
+  }
+
+  addPokemonToDatabase(newPokemon: Pokemon): Promise<Pokemon> {
+    this.db.addPokemon(newPokemon);
+    return Promise.resolve(newPokemon);
   }
 
   goBack(): void {
