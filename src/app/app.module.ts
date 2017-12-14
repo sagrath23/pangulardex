@@ -9,6 +9,10 @@ import { PokeindexComponent } from './pokeindex/pokeindex.component';
 
 import { AppRoutingModule } from './routes/app-routing.module';
 
+// PWA Improvement
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +23,8 @@ import { AppRoutingModule } from './routes/app-routing.module';
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    environment.production ? ServiceWorkerModule.register('/ngsw-worker.js') : [] // register service worker
   ],
   providers: [],
   bootstrap: [AppComponent]
