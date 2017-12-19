@@ -12,7 +12,7 @@ import { Pokemon } from '../pokemon/pokemon';
 })
 export class PokeindexComponent implements OnInit {
 
-  private pokemonsList: PokemonList[];
+  public pokemonsList: PokemonList[];
   private selectedPokemon: Pokemon;
 
   constructor(private pokeApi: PokeapiService) { }

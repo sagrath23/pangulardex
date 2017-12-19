@@ -15,7 +15,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class PokemonComponent implements OnInit {
 
-  private pokemon: Pokemon;
+  public pokemon: Pokemon;
 
   constructor(private route: ActivatedRoute, private db: DatabaseService, private pokeApi: PokeapiService, private location: Location) { }
 

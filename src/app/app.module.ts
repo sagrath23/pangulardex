@@ -11,7 +11,7 @@ import { AppRoutingModule } from './routes/app-routing.module';
 
 // PWA Improvement
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 @NgModule({
   declarations: [

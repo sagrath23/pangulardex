@@ -1,27 +1,31 @@
 {
     "index": "/index.html",
+    "appData": {
+        "name": "Pangulardex v1",
+        "description": "Pokedex implemented in Angular"
+    },
     "assetGroups": [{
-      "name": "app",
-      "installMode": "prefetch",
-      "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html"
-        ],
-        "versionedFiles": [
-          "/*.bundle.css",
-          "/*.bundle.js",
-          "/*.chunk.js"
-        ]
-      }
+        "name": "app",
+        "installMode": "prefetch",
+        "resources": {
+            "files": [
+                "/favicon.ico",
+                "/index.html"
+            ],
+            "versionedFiles": [
+                "/*.bundle.css",
+                "/*.bundle.js",
+                "/*.chunk.js"
+            ]
+        }
     }, {
-      "name": "assets",
-      "installMode": "lazy",
-      "updateMode": "prefetch",
-      "resources": {
-        "files": [
-          "/assets/**"
-        ]
-      }
+        "name": "assets",
+        "installMode": "lazy",
+        "updateMode": "prefetch",
+        "resources": {
+            "files": [
+                "/assets/**"
+            ]
+        }
     }]
-  }
+}
